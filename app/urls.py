@@ -8,4 +8,6 @@ router.register(r'', views.RZViewSet)
 urlpatterns = [
     path('', views.index, name='index'),
     path('redzone/',include(router.urls)),
+    path('addredzone/', views.loadRedZoneData, name='loadRedZones'),
+    path('nearestredzone/', views.nearestRedZone, name='nearestRedZone'),
 ]
