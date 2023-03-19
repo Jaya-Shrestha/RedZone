@@ -69,8 +69,8 @@ def nearestRedZone(request):
     "location": rzData["location"],
     "longitude": rzData['longitude'],
     "latitude": rzData['latitude'],
-    "title": rzData['Title'],
-    "cause": rzData['Cause - Primary'],
-    "url": rzData['Source']
+    "title": rzData['title'],
+    "cause": rzData['cause'],
+    "url": rzData['url']
   }
   return Response(location)
