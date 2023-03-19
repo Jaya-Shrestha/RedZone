@@ -23,13 +23,16 @@ def loadRedZoneData(request):
     dataset = pd.read_csv('nepalmonitor-reports (4).csv', encoding= 'unicode_escape')
 
     RedZone.objects.all().delete()
-    print(dataset)
+    # print(dataset)
+    #print(dataset.iloc[1]['Title'])
     for i in range(len(dataset)):
-        # print(dataset.iloc[i].Address)
         redZone = RedZone(
           latitude=dataset.iloc[i].Latitude,
           longitude = dataset.iloc[i].Longitude,
-          location= dataset.iloc[i].Location
+          location = dataset.iloc[i].Location,
+          title = dataset.iloc[i].Title,
+          cause = dataset.iloc[i]['Cause - Primary'],
+          url = dataset.iloc[i].Source
         )
         redZone.save()
     return Response("redzone are Added")
@@ -58,13 +61,16 @@ def nearestRedZone(request):
   for i in range(len(serializer.data)):
      if serializer.data[i]['id'] == loc[0][0] :
         rzData = serializer.data[i]
-  
+  # print(rzData)
   # print(dataset.iloc[loc[0][0]-1].Address)
   # print(rzData)
   location = {
     "id": rzData["id"],
     "location": rzData["location"],
     "longitude": rzData['longitude'],
-    "latitude": rzData['latitude']
+    "latitude": rzData['latitude'],
+    "title": rzData['Title'],
+    "cause": rzData['Cause - Primary'],
+    "url": rzData['Source']
   }
   return Response(location)
